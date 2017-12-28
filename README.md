@@ -14,6 +14,7 @@ First clone the repo. I'm using [Python 3.6](https://www.python.org/downloads/) 
 * [Tweepy](http://www.tweepy.org/)
 * [Matplotlib](https://matplotlib.org/)
 * [Seaborn](https://seaborn.pydata.org/)
+* [PIL](https://python-pillow.org/)
 * [Wordcloud](http://amueller.github.io/word_cloud/)
 
 To install all dependencies create a virtual env and run:
