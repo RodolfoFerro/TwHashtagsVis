@@ -11,9 +11,9 @@
 # according to the license provided and its conditions.
 # ===============================================================
 
-from wordcloud import WordCloud, STOPWORDS
 from extractor import TweetsExtractor
 from analyzer import TweetsAnalyzer
+from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 import seaborn as sns
 from PIL import Image
@@ -115,12 +115,16 @@ class TweetsVisualizer():
 
         # Create text from hashtags:
         text = ' '.join(list(self.hashtags.keys()))
-        wordcloud = WordCloud(mask=mask, background_color="white")
+
+        # Create wordcloud:
+        wordcloud = WordCloud(mask=mask, background_color="white",
+                              scale=3, colormap="viridis")
         wordcloud.generate(text)
 
         # Plot figure:
-        plt.figure(figsize=(15, 15))
+        plt.figure(figsize=(10, 10))
         plt.imshow(wordcloud, interpolation="bicubic")
+        plt.margins(x=0, y=0)
         plt.axis("off")
 
 
