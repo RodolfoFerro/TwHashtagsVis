@@ -27,15 +27,26 @@ Now that we have all the requirements, we need to create a Twitter App.
 
 In order to extract tweets for a posterior analysis, we need to access to our Twitter account and create an app. The website to do this is [https://apps.twitter.com/](https://apps.twitter.com/). (If you don't know how to do this, you can follow this [quick tutorial video](https://www.youtube.com/watch?v=6wAHcHGgpFU) to create an account and an application.)
 
-From this app that we're creating we will save the following information in a script called `credentials.py`:
-* Consumer Key (API Key)
-* Consumer Secret (API Secret)
-* Access Token
-* Access Token Secret
+From this app that we're creating we will save the following information the [`credentials.py`](https://github.com/RodolfoFerro/TwHashtagsVis/blob/master/scripts/credentials.py) script:
+* **Consumer Key (API Key)**
+* **Consumer Secret (API Secret)**
+* **Access Token**
+* **Access Token Secret**
 
 The content of this script is the following:
 ```python
-# Description...
+# ===============================================================
+# Author: Rodolfo Ferro Pérez
+# Email: ferro@cimat.mx
+# Twitter: @FerroRodolfo
+#
+# Script: Access keys for Twitter App.
+#
+# ABOUT COPYING OR USING PARTIAL INFORMATION:
+# This script was originally created by Rodolfo Ferro. Any
+# explicit usage of this script or its contents is granted
+# according to the license provided and its conditions.
+# ===============================================================
 
 # Consumer:
 CONSUMER_KEY = ''
@@ -44,4 +55,5 @@ CONSUMER_SECRET = ''
 # Access:
 ACCESS_TOKEN = ''
 ACCESS_SECRET = ''
+
 ```
