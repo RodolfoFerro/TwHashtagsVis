@@ -12,6 +12,7 @@
 # ===============================================================
 
 from extractor import TweetsExtractor
+from collections import OrderedDict
 
 
 class TweetsAnalyzer():
@@ -46,6 +47,9 @@ class TweetsAnalyzer():
                         self.hashtags[hashtag['text']] += 1
                     else:
                         self.hashtags[hashtag['text']] = 1
+
+        self.hashtags = OrderedDict(sorted(self.hashtags.iteritems()))
+
         return
 
     def hashtags(self):
@@ -53,7 +57,46 @@ class TweetsAnalyzer():
         Function to return a dictionary containing all
         hashtags from extracte data.
         """
+
         return self.hashtags
+
+    def top_hashtags(self, top=10):
+        popular = sorted(self.hashtags.items(), key=lambda h: h[1], reverse=1)
+        return popular[:top]
+
+    def trending_tweets(self):
+        """
+        Utility funtion that returns the indices of
+        the most popular tweets: the most liked and
+        the most retweeted.
+        """
+
+        # We extract the tweet with more FAVs and more RTs:
+        fav_max = max(self.data['Likes'])
+        rt_max = max(self.data['RTs'])
+
+        # Save the index of the first most like tweet:
+        fav = self.data[self.data.Likes == fav_max].index[0]
+        fav_tw = self.data['Tweets'][fav]
+
+        # Save the index of the first most rt'd tweet:
+        rt = self.data[self.data.RTs == rt_max].index[0]
+        rt_tw = self.data['Tweets'][rt]
+
+        # Max FAVs:
+        print("The tweet with more likes is: \n{}".format(fav_tw))
+        print("Number of likes: {}".format(fav_max))
+        print("{} characters.\n".format(self.data['len'][fav]))
+
+        # Max RTs:
+        print("The tweet with more retweets is: \n{}".format(rt_tw))
+        print("Number of retweets: {}".format(rt_max))
+        print("{} characters.\n".format(self.data['len'][rt]))
+
+        return fav, rt
+
+    def passe(self):
+        pass
 
 
 if __name__ == '__main__':
