@@ -60,7 +60,9 @@ ACCESS_SECRET = ''
 
 ```
 
-## Wanna see it in action?
+## How to use it
+
+### Wanna see it in action?
 
 Feel free to check the [demo notebook](https://github.com/RodolfoFerro/TwHashtagsVis/blob/master/scripts/Twitter%20hashtags%20visualization.ipynb) from the repo or directly from [Jupyter nbviewer](https://nbviewer.jupyter.org/github/RodolfoFerro/TwHashtagsVis/blob/master/scripts/Twitter%20hashtags%20visualization.ipynb)!
 
