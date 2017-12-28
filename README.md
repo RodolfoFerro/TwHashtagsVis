@@ -66,4 +66,6 @@ Feel free to check the [demo notebook](https://github.com/RodolfoFerro/TwHashtag
 
 ### Example of visualization (mask/wordcloud)
 
+An example of visualization of hashtags from [@pybites](https://twitter.com/pybites) using a mask of the Twitter bird is the following one:
+
 <img src="https://raw.githubusercontent.com/RodolfoFerro/TwHashtagsVis/master/imgs/twird.png" width="50%"><img src="https://raw.githubusercontent.com/RodolfoFerro/TwHashtagsVis/master/imgs/wordcloud_twird.png" width="50%">
