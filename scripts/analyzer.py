@@ -48,7 +48,7 @@ class TweetsAnalyzer():
                     else:
                         self.hashtags[hashtag['text']] = 1
 
-        self.hashtags = OrderedDict(sorted(self.hashtags.iteritems()))
+        self.hashtags = OrderedDict(sorted(self.hashtags.items()))
 
         return
 
@@ -60,7 +60,7 @@ class TweetsAnalyzer():
 
         return self.hashtags
 
-    def top_hashtags(self, top=10):
+    def top_hashtags(self, top=1e10):
         popular = sorted(self.hashtags.items(), key=lambda h: h[1], reverse=1)
         return popular[:top]
 
@@ -80,9 +80,6 @@ class TweetsAnalyzer():
         rt = self.data[self.data.RTs == rt_max].index[0]
 
         return fav, rt
-
-    def passe(self):
-        pass
 
 
 if __name__ == '__main__':
