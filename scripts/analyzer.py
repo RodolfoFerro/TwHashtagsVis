@@ -75,23 +75,9 @@ class TweetsAnalyzer():
         fav_max = max(self.data['Likes'])
         rt_max = max(self.data['RTs'])
 
-        # Save the index of the first most like tweet:
+        # Save the index of the first most liked and RT'd tweet:
         fav = self.data[self.data.Likes == fav_max].index[0]
-        fav_tw = self.data['Tweets'][fav]
-
-        # Save the index of the first most rt'd tweet:
         rt = self.data[self.data.RTs == rt_max].index[0]
-        rt_tw = self.data['Tweets'][rt]
-
-        # Max FAVs:
-        print("The tweet with more likes is: \n{}".format(fav_tw))
-        print("Number of likes: {}".format(fav_max))
-        print("{} characters.\n".format(self.data['len'][fav]))
-
-        # Max RTs:
-        print("The tweet with more retweets is: \n{}".format(rt_tw))
-        print("Number of retweets: {}".format(rt_max))
-        print("{} characters.\n".format(self.data['len'][rt]))
 
         return fav, rt
 
