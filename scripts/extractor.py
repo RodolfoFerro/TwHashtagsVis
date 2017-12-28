@@ -41,15 +41,22 @@ class TweetsExtractor():
         """
 
         # We create a tweet list as follows:
-        tweets = self.extractor.user_timeline(screen_name=user, count=200)
+        tweets = self.extractor.user_timeline(
+                    screen_name=user,
+                    count=200,
+                    tweet_mode='extended')
+
+        # Print number of tweets extracted:
         print("Number of tweets extracted: {}.\n".format(len(tweets)))
 
         # We prepare data to create a dataframe:
-        data = [[tw.text, len(tw.text), tw.id, tw.created_at, tw.source,
-                tw.favorite_count, tw.retweet_count, tw.entities]
-                for tw in tweets]
+        data = [[tw.full_text, len(tw.full_text), tw.id, tw.created_at,
+                tw.source, tw.favorite_count, tw.retweet_count,
+                tw.entities] for tw in tweets]
         columns = ['Tweets', 'len', 'ID', 'Date', 'Source',
                    'Likes', 'RTs', 'Entities']
+
+        # We create a dataframe:
         dataframe = pd.DataFrame(data=data, columns=columns)
 
         return dataframe
