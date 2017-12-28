@@ -3,7 +3,7 @@
 # Email: ferro@cimat.mx
 # Twitter: @FerroRodolfo
 #
-# Script: Tweets analyzer script.
+# Script: Tweets visualizer script.
 #
 # ABOUT COPYING OR USING PARTIAL INFORMATION:
 # This script was originally created by Rodolfo Ferro. Any
@@ -11,11 +11,10 @@
 # according to the license provided and its conditions.
 # ===============================================================
 
-from extractor import TweetsExtractor
-from collections import OrderedDict
+from extractor import TweetsAnalyzer
 
 
-class TweetsAnalyzer():
+class TweetsVisualizer():
 
     def __init__(self, extractor):
         """
