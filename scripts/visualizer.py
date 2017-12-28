@@ -11,78 +11,77 @@
 # according to the license provided and its conditions.
 # ===============================================================
 
-from extractor import TweetsAnalyzer
+from extractor import TweetsExtractor
+from analyzer import TweetsAnalyzer
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
 
 
 class TweetsVisualizer():
 
-    def __init__(self, extractor):
+    def __init__(self, analyzer):
         """
         Constructor function using a TweetsExtractor
         object.
         """
 
         # Construct object:
-        self.extractor = extractor
-        self.data = None
-        self.hashtags = {}
+        self.analyzer = analyzer
+        self.data = self.analyzer.data
+        self.hashtags = self.analyzer.hashtags
 
         return
 
-    def analyze(self, user):
+    def retweets(self):
         """
-        Analyzer function to gather all data from
-        a TweetsExtractor object.
+        Function to plot time series of retweets.
         """
 
-        # Extract data from extractor:
-        self.data = self.extractor.extract(user)
+        # We create time series for data:
+        data = self.data
+        tret = pd.Series(data=data['RTs'].values, index=data['Date'])
 
-        # Construct hashtags dictionary:
-        for entity in self.data['Entities']:
-            if entity['hashtags']:
-                for hashtag in entity['hashtags']:
-                    if hashtag['text'] in self.hashtags.keys():
-                        self.hashtags[hashtag['text']] += 1
-                    else:
-                        self.hashtags[hashtag['text']] = 1
-
-        self.hashtags = OrderedDict(sorted(self.hashtags.items()))
+        # Lenghts along time:
+        plt.title("Retweets along time")
+        tret.plot(figsize=(16, 4), label="Retweets", color='g', legend=True)
 
         return
 
-    def hashtags(self):
+    def likes(self):
         """
-        Function to return a dictionary containing all
-        hashtags from extracte data.
-        """
-
-        return self.hashtags
-
-    def top_hashtags(self, top=1e10):
-        popular = sorted(self.hashtags.items(), key=lambda h: h[1], reverse=1)
-        return popular[:top]
-
-    def trending_tweets(self):
-        """
-        Utility funtion that returns the indices of
-        the most popular tweets: the most liked and
-        the most retweeted.
+        Function to plot time series of likes.
         """
 
-        # We extract the tweet with more FAVs and more RTs:
-        fav_max = max(self.data['Likes'])
-        rt_max = max(self.data['RTs'])
+        # We create time series for data:
+        data = self.data
+        tfav = pd.Series(data=data['Likes'].values, index=data['Date'])
 
-        # Save the index of the first most liked and RT'd tweet:
-        fav = self.data[self.data.Likes == fav_max].index[0]
-        rt = self.data[self.data.RTs == rt_max].index[0]
+        # Lenghts along time:
+        plt.title("Likes along time")
+        tfav.plot(figsize=(16, 4), label="Likes", color='b', legend=True)
 
-        return fav, rt
+        return
+
+    def lengths(self):
+        """
+        Function to plot time series of lengths.
+        """
+
+        # We create time series for data:
+        data = self.data
+        tlen = pd.Series(data=data['len'].values, index=data['Date'])
+
+        # Lenghts along time:
+        plt.title("Lenghts along time")
+        tlen.plot(figsize=(16, 4), label="Leghts", color='r', legend=True)
+
+        return
 
 
 if __name__ == '__main__':
     extractor = TweetsExtractor()
     analyzer = TweetsAnalyzer(extractor)
     analyzer.analyze("FerroRodolfo")
-    print(analyzer.hashtags)
+    visualizer = TweetsVisualizer(analyzer)
+    visualizer.time_series()
