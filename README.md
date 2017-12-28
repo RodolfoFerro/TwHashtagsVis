@@ -59,3 +59,11 @@ ACCESS_TOKEN = ''
 ACCESS_SECRET = ''
 
 ```
+
+## Wanna see it in action?
+
+Feel free to check the [demo notebook](https://github.com/RodolfoFerro/TwHashtagsVis/blob/master/scripts/Twitter%20hashtags%20visualization.ipynb) from the repo or directly from [Jupyter nbviewer](https://nbviewer.jupyter.org/github/RodolfoFerro/TwHashtagsVis/blob/master/scripts/Twitter%20hashtags%20visualization.ipynb)!
+
+### Example of visualization (mask/wordcloud)
+
+<img src="https://raw.githubusercontent.com/RodolfoFerro/TwHashtagsVis/master/imgs/twird.png" width="50%"><img src="https://raw.githubusercontent.com/RodolfoFerro/TwHashtagsVis/master/imgs/wordcloud_twird.png" width="50%">
