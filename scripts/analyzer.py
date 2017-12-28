@@ -58,5 +58,6 @@ class TweetsAnalyzer():
 
 if __name__ == '__main__':
     extractor = TweetsExtractor()
-    analyzer = TweetsAnalyzer(extractor, "FerroRodolfo")
+    analyzer = TweetsAnalyzer(extractor)
+    analyzer.analyze("FerroRodolfo")
     print(analyzer.hashtags)
