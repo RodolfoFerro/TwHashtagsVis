@@ -11,11 +11,14 @@
 # according to the license provided and its conditions.
 # ===============================================================
 
+from wordcloud import WordCloud, STOPWORDS
 from extractor import TweetsExtractor
 from analyzer import TweetsAnalyzer
 import matplotlib.pyplot as plt
 import seaborn as sns
+from PIL import Image
 import pandas as pd
+import numpy as np
 
 
 class TweetsVisualizer():
@@ -78,10 +81,56 @@ class TweetsVisualizer():
 
         return
 
+    def create_mask(self, img_path, threshold=200):
+        """
+        Function to create a mask for word cloud.
+        """
+        def binarize_array(numpy_array, threshold=threshold):
+            """Binarize a numpy array."""
+
+            for i in range(len(numpy_array)):
+                for j in range(len(numpy_array[0])):
+                    if numpy_array[i][j] > threshold:
+                        numpy_array[i][j] = 255
+                    else:
+                        numpy_array[i][j] = 0
+            return numpy_array
+
+        def binarize_image(img_path, threshold=threshold):
+            """Binarize an image."""
+
+            image_file = Image.open(img_path)
+            image = image_file.convert('L')
+            image = np.array(image)
+            image = binarize_array(image, threshold)
+
+            return image
+
+        return binarize_image(img_path, threshold=threshold)
+
+    def wordcloud(self, mask=None):
+        """
+        Function to plot the wordloud with hashtags.
+        """
+
+        # Create text from hashtags:
+        text = ' '.join(list(self.hashtags.keys()))
+        wordcloud = WordCloud(mask=mask, background_color="white")
+        wordcloud.generate(text)
+
+        # Plot figure:
+        plt.figure(figsize=(15, 15))
+        plt.imshow(wordcloud, interpolation="bicubic")
+        plt.axis("off")
+
 
 if __name__ == '__main__':
     extractor = TweetsExtractor()
     analyzer = TweetsAnalyzer(extractor)
     analyzer.analyze("FerroRodolfo")
     visualizer = TweetsVisualizer(analyzer)
-    visualizer.time_series()
+    visualizer.likes()
+    visualizer.retweets()
+    mask = visualizer.create_mask("../imgs/twird.jpg")
+    visualizer.wordcloud(mask)
+    plt.savefig("../imgs/wordcloud.png")
