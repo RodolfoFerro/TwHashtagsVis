@@ -13,37 +13,49 @@
 
 # We import our access keys:
 from credentials import *    # This will allow us to use the keys as variables
+import pandas as pd
+import tweepy as tw
 
 
-# API's setup:
-def twitter_setup():
-    """
-    Utility function to setup the Twitter's API
-    with our access keys provided.
-    """
-    # Authentication and access using keys:
-    auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
-    auth.set_access_token(ACCESS_TOKEN, ACCESS_SECRET)
+class TweetsExtractor():
 
-    # Return API with authentication:
-    api = tweepy.API(auth)
-    return api
+    def __init__(self):
+        """
+        Constructor function to setup the Twitter's API
+        with our access keys provided.
+        """
 
+        # Authentication and access using keys:
+        auth = tw.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
+        auth.set_access_token(ACCESS_TOKEN, ACCESS_SECRET)
 
-def extract(user):
-    """
-    Function to extract latest 200 tweets from a
-    user provided.
-    """
-    # We create an extractor object from API:
-    extractor = twitter_setup()
+        # Return API with authentication:
+        api = tw.API(auth)
+        self.extractor = api
+        return
 
-    # We create a tweet list as follows:
-    tweets = extractor.user_timeline(screen_name=user, count=200)
-    print("Number of tweets extracted: {}.\n".format(len(tweets)))
+    def extract(self, user):
+        """
+        Function to extract latest 200 tweets from a
+        user provided.
+        """
 
-    return tweets
+        # We create a tweet list as follows:
+        tweets = self.extractor.user_timeline(screen_name=user, count=200)
+        print("Number of tweets extracted: {}.\n".format(len(tweets)))
+
+        # We prepare data to create a dataframe:
+        data = [[tw.text, len(tw.text), tw.id, tw.created_at, tw.source,
+                tw.favorite_count, tw.retweet_count, tw.entities]
+                for tw in tweets]
+        columns = ['Tweets', 'len', 'ID', 'Date', 'Source',
+                   'Likes', 'RTs', 'Entities']
+        dataframe = pd.DataFrame(data=data, columns=columns)
+
+        return dataframe
 
 
 if __name__ == '__main__':
-    tweets = extract("FerroRodolfo")
+    extractor = TweetsExtractor()
+    data = extractor.extract("FerroRodolfo")
+    print(data.head(5))
