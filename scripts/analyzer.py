@@ -16,17 +16,29 @@ from extractor import TweetsExtractor
 
 class TweetsAnalyzer():
 
-    def __init__(self, extractor, user):
+    def __init__(self, extractor):
         """
-        Constructor function to gather all data from
+        Constructor function using a TweetsExtractor
+        object.
+        """
+
+        # Construct object:
+        self.extractor = extractor
+        self.data = None
+        self.hashtags = {}
+
+        return
+
+    def analyze(self, user):
+        """
+        Analyzer function to gather all data from
         a TweetsExtractor object.
         """
 
         # Extract data from extractor:
-        self.data = extractor.extract(user)
+        self.data = self.extractor.extract(user)
 
         # Construct hashtags dictionary:
-        self.hashtags = {}
         for entity in self.data['Entities']:
             if entity['hashtags']:
                 for hashtag in entity['hashtags']:
@@ -34,7 +46,6 @@ class TweetsAnalyzer():
                         self.hashtags[hashtag['text']] += 1
                     else:
                         self.hashtags[hashtag['text']] = 1
-
         return
 
     def hashtags(self):
