@@ -9,9 +9,11 @@ Main goals:
 
 First clone the repo. I'm using [Python 3.6](https://www.python.org/downloads/) with the following packages:
 
-* [pandas](http://pandas.pydata.org/)
-* [tweepy](http://www.tweepy.org/)
-* ...
+* [NumPy](http://www.numpy.org/)
+* [Pandas](http://pandas.pydata.org/)
+* [Tweepy](http://www.tweepy.org/)
+* [Matplotlib](https://matplotlib.org/)
+* [Seaborn](https://seaborn.pydata.org/)
 
 To install all dependencies create a virtual env and run:
 
